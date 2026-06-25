@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import type { ReactNode } from "react";
+import "@/styles/globals.css";
 import { Inter } from "next/font/google";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "DevFolio | Digital Resumes & Portfolios for Developers",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
