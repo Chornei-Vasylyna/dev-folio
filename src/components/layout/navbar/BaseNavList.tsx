@@ -1,9 +1,10 @@
 import { SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isActive } from "@/utils/isActive";
-import { links, navbarHoverClass } from "./constants";
+import { navbarHoverClass } from "./constants";
 
 interface NavListProps {
   pathname: string;
@@ -12,7 +13,7 @@ interface NavListProps {
 export const NavList = ({ pathname }: NavListProps) => {
   return (
     <nav className="hidden items-center gap-2 sm:flex">
-      {links.map((link) => (
+      {NAV_LINKS.map((link) => (
         <Button
           key={link.href}
           asChild

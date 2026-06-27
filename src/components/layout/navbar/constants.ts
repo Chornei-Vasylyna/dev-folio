@@ -1,6 +1,2 @@
-export const links = [
-  { href: "/", label: "Catalog" },
-  { href: "/portfolio", label: "Portfolio" },
-] as const;
-
-export const navbarHoverClass = "hover:bg-transparent hover:scale-105";
+export const navbarHoverClass =
+  "hover:bg-transparent hover:scale-105 transition-all duration-250 ease-in-out";

@@ -2,9 +2,10 @@ import { SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SheetContent } from "@/components/ui/Sheet";
+import { NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isActive } from "@/utils/isActive";
-import { links, navbarHoverClass } from "./constants";
+import { navbarHoverClass } from "./constants";
 
 interface MobileNavListProps {
   pathname: string;
@@ -22,7 +23,7 @@ export const MobileNavList = ({ onNavigate, pathname }: MobileNavListProps) => {
         className="flex flex-col justify-center gap-2"
         aria-label="Mobile navigation"
       >
-        {links.map((link) => (
+        {NAV_LINKS.map((link) => (
           <Button
             key={link.href}
             asChild
