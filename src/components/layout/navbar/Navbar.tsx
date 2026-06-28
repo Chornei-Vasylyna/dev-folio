@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/Sheet";
+import { LINKS } from "@/constants";
 import { Navigation } from "./Navigation";
 
 export const Navbar = () => {
@@ -17,8 +18,8 @@ export const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
       <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <div className="container mx-auto relative flex h-16 items-center justify-between px-4 xl:max-w-8xl">
-          <Link href="/" className="flex items-center gap-2">
+        <div className="container relative flex h-16 items-center justify-between px-4">
+          <Link href={LINKS.home} className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-indigo-500 to-blue-500">
               <GraduationCapIcon className="h-5 w-5 text-white" />
             </div>
@@ -41,7 +42,9 @@ export const Navbar = () => {
               <ListIcon className="size-5" />
             )}
           </Button>
-          {isMenuOpen ? <Navigation mobile onNavigate={handleCloseMenu} /> : null}
+          {isMenuOpen ? (
+            <Navigation mobile onNavigate={handleCloseMenu} />
+          ) : null}
         </div>
       </Sheet>
     </header>
