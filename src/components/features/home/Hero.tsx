@@ -27,23 +27,18 @@ export const Hero = () => {
           with the ability to download as a PDF.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link href={LINKS.register}>
-            <Button
-              size="lg"
-              className="bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white w-44 transition-[--tw-gradient-from,--tw-gradient-to] duration-250 ease-in-out"
-            >
+          <Button
+            asChild
+            size="lg"
+            className="bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white w-44 transition-[--tw-gradient-from,--tw-gradient-to] duration-250 ease-in-out"
+          >
+            <Link href={LINKS.register}>
               Register <ArrowRightIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-          <Link href={LINKS.login}>
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-28 sm:w-24"
-            >
-              Login
-            </Button>
-          </Link>
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="w-28 sm:w-24">
+            <Link href={LINKS.login}>Login</Link>
+          </Button>
         </div>
         <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 import { SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { NAV_LINKS } from "@/constants";
+import { LINKS, NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isActive } from "@/utils/isActive";
 import { navbarHoverClass } from "./constants";
@@ -27,10 +27,13 @@ export const NavList = ({ pathname }: NavListProps) => {
       <div className="mx-1 h-4 w-px bg-border" />
       <Button
         variant="ghost"
+        asChild
         size="sm"
         className={cn("gap-1.5", navbarHoverClass)}
       >
-        <SignOutIcon className="h-4 w-4" /> <span>Exit</span>
+        <Link href={LINKS.login}>
+          <SignOutIcon className="h-4 w-4" /> <span>Exit</span>
+        </Link>
       </Button>
     </nav>
   );

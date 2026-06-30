@@ -2,7 +2,7 @@ import { SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SheetContent } from "@/components/ui/Sheet";
-import { NAV_LINKS } from "@/constants";
+import { LINKS, NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { isActive } from "@/utils/isActive";
 import { navbarHoverClass } from "./constants";
@@ -42,11 +42,14 @@ export const MobileNavList = ({ onNavigate, pathname }: MobileNavListProps) => {
         <div className="my-1 h-px w-full bg-border" />
         <Button
           variant="ghost"
+          asChild
           size="sm"
           className={cn("w-full justify-start gap-1.5 px-3", navbarHoverClass)}
           onClick={onNavigate}
         >
-          <SignOutIcon className="h-4 w-4" /> Exit
+          <Link href={LINKS.login}>
+            <SignOutIcon className="h-4 w-4" /> <span>Exit</span>
+          </Link>
         </Button>
       </nav>
     </SheetContent>
