@@ -39,7 +39,7 @@ export const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="w-28 sm:w-24 bg-transparent"
+              className="w-28 sm:w-24"
             >
               Login
             </Button>
