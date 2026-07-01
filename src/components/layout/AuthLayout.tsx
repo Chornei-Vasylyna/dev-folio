@@ -1,12 +1,11 @@
 import type { IconProps } from "@phosphor-icons/react";
-import type { ComponentType, ReactNode } from "react";
+import type { ComponentType, PropsWithChildren, ReactNode } from "react";
 
 interface AuthLayoutProps {
   icon: ComponentType<IconProps>;
   title: string;
   subtitle: string;
   footer?: ReactNode;
-  children: ReactNode;
 }
 
 export const AuthLayout = ({
@@ -15,7 +14,7 @@ export const AuthLayout = ({
   subtitle,
   footer,
   children,
-}: AuthLayoutProps) => {
+}: PropsWithChildren<AuthLayoutProps>) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="flex flex-col items-center w-full max-w-md">
@@ -31,7 +30,7 @@ export const AuthLayout = ({
           </h1>
           <p className="text-muted-foreground mt-2">{subtitle}</p>
         </div>
-          {children}
+        {children}
         {footer && (
           <p className="text-center text-sm text-muted-foreground mt-6">
             {footer}

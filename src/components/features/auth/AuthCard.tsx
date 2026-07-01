@@ -1,20 +1,16 @@
-import type { ReactNode, SubmitEvent } from "react";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/Card";
+import type { PropsWithChildren, SubmitEvent } from "react";
+import { Card, CardContent } from "@/components/ui/Card";
 import { Separator } from "@/components/ui/Separator";
 import { OAuthButtons } from "./OAuthButtons";
 
 interface AuthCardProps {
-  children: ReactNode;
   onSubmit?: (e: SubmitEvent<HTMLFormElement>) => void;
 }
 
 export function AuthCard({
-  children,
   onSubmit,
-}: AuthCardProps) {
+  children,
+}: PropsWithChildren<AuthCardProps>) {
   return (
     <Card className="w-full max-w-sm ">
       <CardContent className="space-y-4">
