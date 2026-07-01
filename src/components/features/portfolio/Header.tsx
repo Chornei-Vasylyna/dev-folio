@@ -17,7 +17,7 @@ export const Header = () => {
             </Link>
           </Button>
         )}
-        <Button className="bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white">
+        <Button className="bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white">
           <FloppyDiskIcon className="h-4 w-4 mr-1" /> Save
         </Button>
       </div>
