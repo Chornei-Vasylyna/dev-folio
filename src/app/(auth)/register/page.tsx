@@ -1,12 +1,12 @@
 "use client";
 
 import { UserPlusIcon } from "@phosphor-icons/react";
-import { AuthCard } from "@/components/features/auth/AuthCard";
-import { EmailInput } from "@/components/features/auth/EmailInput";
-import { PasswordInput } from "@/components/features/auth/PasswordInput";
-import { RegisterFooter } from "@/components/features/auth/RegisterFooter";
-import { AuthLayout } from "@/components/layout/AuthLayout";
 import { Button } from "@/components/ui/button";
+import { AuthCard } from "@/features/auth/components/AuthCard";
+import { EmailInput } from "@/features/auth/components/EmailInput";
+import { PasswordInput } from "@/features/auth/components/PasswordInput";
+import { RegisterFooter } from "@/features/auth/components/RegisterFooter";
+import { AuthLayout } from "@/features/auth/layout/AuthLayout";
 
 export default function Login() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import { ProfileForm } from "@/components/features/portfolio/ProfileForm";
-import { usePortfolioTab } from "../../../components/features/portfolio/providers/PortfolioTabContext";
+import { ProfileForm } from "@/features/portfolio/components/ProfileForm";
+import { usePortfolioTab } from "@/features/portfolio/hooks/usePortfolioTab";
 
 export default function Portfolio() {
   const { activeTab } = usePortfolioTab();

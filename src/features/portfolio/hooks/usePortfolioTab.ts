@@ -1,0 +1,12 @@
+import { useContext } from "react";
+import { PortfolioTabContext } from "@/features/portfolio/providers/PortfolioTabContext";
+
+export const usePortfolioTab = () => {
+  const context = useContext(PortfolioTabContext);
+
+  if (!context) {
+    throw new Error("usePortfolioTab must be used inside PortfolioTabProvider");
+  }
+
+  return context;
+};

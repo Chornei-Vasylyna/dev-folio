@@ -10,11 +10,11 @@ import {
   UploadSimpleIcon,
   UserIcon,
 } from "@phosphor-icons/react";
+import { PhotoUpload } from "@/components/PhotoUpload";
 import { FieldLabel } from "@/components/ui/field";
 import { InputField } from "@/components/ui/InputField";
 import { Separator } from "@/components/ui/Separator";
 import { Textarea } from "@/components/ui/Textarea";
-import { PhotoUpload } from "./PhotoUpload";
 
 export const ProfileForm = () => {
   return (

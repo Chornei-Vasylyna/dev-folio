@@ -1,7 +1,7 @@
 "use client";
 
-import { usePortfolioTab } from "@/components/features/portfolio/providers/PortfolioTabContext";
 import { Button } from "@/components/ui/button";
+import { usePortfolioTab } from "@/features/portfolio/hooks/usePortfolioTab";
 import { cn } from "@/lib/utils";
 import { PORTFOLIO_TABS } from "./Sidebar.constants";
 
