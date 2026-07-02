@@ -10,6 +10,7 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@phosphor-icons/react": "^2.1.10",
     "@uploadcare/react-uploader": "^1.16.0",
     "class-variance-authority": "^0.7.1",

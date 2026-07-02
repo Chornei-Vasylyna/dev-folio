@@ -6,7 +6,7 @@ import {
   WrenchIcon,
 } from "@phosphor-icons/react";
 
-export const tabs = [
+export const PORTFOLIO_TABS = [
   { id: "profile", label: "Profile", icon: UserIcon },
   { id: "experience", label: "Experience", icon: BriefcaseIcon },
   { id: "education", label: "Education", icon: GraduationCapIcon },

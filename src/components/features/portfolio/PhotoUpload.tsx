@@ -12,7 +12,7 @@ import { type ComponentType, type DragEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/Label";
 import { cn } from "@/lib/utils";
-import { env } from "@/lib/validation/envSchems";
+import { env } from "@/lib/validation/envSchema";
 
 interface PhotoUploadProps {
   label: string;
@@ -30,11 +30,19 @@ export const PhotoUpload = ({
   icon: Icon,
 }: PhotoUploadProps) => {
   const uploaderRef = useRef<UploadCtxProvider | null>(null);
+
+  // States
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "uploading" | "success">(
     "idle",
   );
   const [isDragging, setIsDragging] = useState(false);
+
+  // Constants
+  const uploadAreaStyle = {
+    width: `${uploadAreaWidth * 0.25}rem`,
+    height: `${uploadAreaHeight * 0.25}rem`,
+  };
 
   // Handlers
   const handleUpload = () => {
@@ -81,10 +89,10 @@ export const PhotoUpload = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        style={uploadAreaStyle}
         className={cn(
-          "relative rounded-full overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center ",
+          "relative rounded-full overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center p-0",
           isDragging && "border-indigo-400 bg-indigo-50/40",
-          `h-${uploadAreaHeight} w-${uploadAreaWidth}`,
         )}
       >
         {fileUrl ? (

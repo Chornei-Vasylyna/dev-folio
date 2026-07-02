@@ -1,4 +1,3 @@
-import type { tabs } from "./Sidebar.constants";
+import type { PORTFOLIO_TABS } from "./Sidebar.constants";
 
-export type Tabs = (typeof tabs)[number]["id"];
-
+export type Tabs = (typeof PORTFOLIO_TABS)[number]["id"];
