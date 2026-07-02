@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/Textarea";
 
 export const ProfileForm = () => {
   return (
-    <>
+    <div className="grid grid-cols-2 gap-x-4 gap-y-5">
       <div className="flex flex-col items-center gap-3 col-span-full">
         <PhotoUpload
           label="Profile photo"
@@ -87,6 +87,6 @@ export const ProfileForm = () => {
         <FieldLabel htmlFor="bio">Biography</FieldLabel>
         <Textarea id="bio" placeholder="Tell us about yourself..." rows={4} />
       </div>
-    </>
+    </div>
   );
 };

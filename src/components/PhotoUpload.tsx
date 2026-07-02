@@ -43,6 +43,8 @@ export const PhotoUpload = ({
     width: `${uploadAreaWidth * 0.25}rem`,
     height: `${uploadAreaHeight * 0.25}rem`,
   };
+  const roundedClass =
+    uploadAreaWidth === uploadAreaHeight ? "rounded-full" : "rounded-md";
 
   // Handlers
   const handleUpload = () => {
@@ -91,7 +93,8 @@ export const PhotoUpload = ({
         onDrop={handleDrop}
         style={uploadAreaStyle}
         className={cn(
-          "relative rounded-full overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center p-0",
+          "relative overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center p-0",
+          roundedClass,
           isDragging && "border-indigo-400 bg-indigo-50/40",
         )}
       >
