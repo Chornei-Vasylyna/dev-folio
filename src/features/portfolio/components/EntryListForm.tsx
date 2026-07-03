@@ -1,8 +1,7 @@
 import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
-import { FieldLabel } from "@/components/ui/field";
 import { InputField } from "@/components/ui/InputField";
-import { Textarea } from "@/components/ui/Textarea";
+import { TextareaField } from "@/components/ui/TextareaField";
 
 type FieldConfig = {
   id: string;
@@ -11,6 +10,7 @@ type FieldConfig = {
 };
 
 interface EntryListFormProps {
+  formId: "experience" | "education";
   itemLabel: string;
   addLabel: string;
   items: readonly unknown[];
@@ -21,6 +21,7 @@ interface EntryListFormProps {
 }
 
 export const EntryListForm = ({
+  formId,
   itemLabel,
   addLabel,
   items,
@@ -30,7 +31,7 @@ export const EntryListForm = ({
   descriptionField,
 }: EntryListFormProps) => {
   return (
-    <>
+    <form>
       {items.map((_, index) => (
         <div
           key={`${itemLabel}-${
@@ -70,12 +71,10 @@ export const EntryListForm = ({
                 placeholder={periodField.placeholder}
               />
             </div>
-            <div className="flex flex-col gap-3 md:col-span-2">
-              <FieldLabel htmlFor={descriptionField.id}>
-                {descriptionField.label}
-              </FieldLabel>
-              <Textarea
+            <div className="md:col-span-2">
+              <TextareaField
                 id={descriptionField.id}
+                label={descriptionField.label}
                 placeholder={descriptionField.placeholder}
                 rows={descriptionField.rows ?? 4}
               />
@@ -87,6 +86,6 @@ export const EntryListForm = ({
       <Button variant="outline" className="w-full border-dashed">
         <PlusIcon className="h-4 w-4 mr-2" /> {addLabel}
       </Button>
-    </>
+    </form>
   );
 };

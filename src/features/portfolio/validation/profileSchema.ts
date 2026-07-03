@@ -1,10 +1,11 @@
 import { z } from "zod";
 
 export const profileSchema = z.object({
+  avatar: z.url().optional(),
   fullName: z
     .string("Full name is required")
     .trim()
-    .min(2, "Full name must be at least 2 characters")
+    .min(3, "Full name must be at least 3 characters")
     .max(100, "Full name is too long (max 100 characters)"),
 
   specialty: z
@@ -15,7 +16,7 @@ export const profileSchema = z.object({
 
   email: z.email("Invalid email address").trim(),
 
-  phone: z.e164({ error: "Phone number must be in the format +380XXXXXXXXX" }),
+  phone: z.e164({ error: "Invalid phone number" }),
 
   githubUrl: z
     .url("Invalid URL")

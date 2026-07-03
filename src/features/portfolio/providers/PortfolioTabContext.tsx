@@ -12,6 +12,8 @@ import type { Tabs } from "@/features/portfolio/components/sidebar/Sidebar.types
 interface PortfolioTabContextValue {
   activeTab: Tabs;
   setActiveTab: Dispatch<SetStateAction<Tabs>>;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
 export const PortfolioTabContext = createContext<
@@ -20,9 +22,12 @@ export const PortfolioTabContext = createContext<
 
 export const PortfolioTabProvider = ({ children }: PropsWithChildren) => {
   const [activeTab, setActiveTab] = useState<Tabs>("profile");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
-    <PortfolioTabContext.Provider value={{ activeTab, setActiveTab }}>
+    <PortfolioTabContext.Provider
+      value={{ activeTab, setActiveTab, isSubmitting, setIsSubmitting }}
+    >
       {children}
     </PortfolioTabContext.Provider>
   );

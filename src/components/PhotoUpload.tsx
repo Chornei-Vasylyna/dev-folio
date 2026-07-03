@@ -20,6 +20,8 @@ interface PhotoUploadProps {
   uploadAreaWidth: number;
   uploadAreaHeight: number;
   icon: ComponentType<IconProps>;
+  value?: string;
+  onAvatarChange: (url: string | null) => void;
 }
 
 export const PhotoUpload = ({
@@ -28,11 +30,12 @@ export const PhotoUpload = ({
   uploadAreaWidth,
   uploadAreaHeight,
   icon: Icon,
+  value,
+  onAvatarChange,
 }: PhotoUploadProps) => {
   const uploaderRef = useRef<UploadCtxProvider | null>(null);
 
   // States
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "uploading" | "success">(
     "idle",
   );
@@ -54,12 +57,12 @@ export const PhotoUpload = ({
   const handleUploadChange = (e: { allEntries: OutputFileEntry[] }) => {
     const entry = e.allEntries.find((f) => f.status === "success");
     if (entry?.cdnUrl) {
-      setFileUrl(entry.cdnUrl);
+      onAvatarChange(entry.cdnUrl);
       setStatus("success");
     }
 
     if (e.allEntries.length === 0) {
-      setFileUrl(null);
+      onAvatarChange(null);
       setStatus("idle");
     }
   };
@@ -98,13 +101,8 @@ export const PhotoUpload = ({
           isDragging && "border-indigo-400 bg-indigo-50/40",
         )}
       >
-        {fileUrl ? (
-          <Image
-            src={fileUrl}
-            alt="User avatar"
-            fill
-            className="object-cover"
-          />
+        {value ? (
+          <Image src={value} alt="User avatar" fill className="object-cover" />
         ) : (
           <div className="flex flex-col items-center justify-center text-muted-foreground">
             <Icon className="w-5 h-5 mb-1 " />

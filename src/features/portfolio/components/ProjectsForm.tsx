@@ -17,7 +17,7 @@ interface ProjectsFormProps {
 
 export const ProjectsForm = ({ items }: ProjectsFormProps) => {
   return (
-    <div className="space-y-4">
+    <form className="space-y-4">
       {items.map((p, i) => (
         <div
           // biome-ignore lint/suspicious/noArrayIndexKey:  there is no other option
@@ -61,6 +61,6 @@ export const ProjectsForm = ({ items }: ProjectsFormProps) => {
       <Button variant="outline" className="w-full border-dashed">
         <PlusIcon className="h-4 w-4 mr-2" /> Add project
       </Button>
-    </div>
+    </form>
   );
 };

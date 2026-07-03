@@ -4,7 +4,7 @@ import type {
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
 } from "react";
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -17,6 +17,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
   icon?: ComponentType<IconProps>;
+  error?: string;
 }
 
 export const InputField = ({
@@ -25,6 +26,7 @@ export const InputField = ({
   type = "text",
   placeholder,
   icon: Icon,
+  error,
   ...props
 }: InputFieldProps) => {
   return (
@@ -38,12 +40,12 @@ export const InputField = ({
         )}
         <InputGroupInput
           id={id}
-          name={id}
           type={type}
           placeholder={placeholder}
           {...props}
         />
       </InputGroup>
+      {error && <FieldError>{error}</FieldError>}
     </Field>
   );
 };

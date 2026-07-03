@@ -1,12 +1,11 @@
-import { FieldLabel } from "@/components/ui/field";
-import { Textarea } from "@/components/ui/Textarea";
+import { TextareaField } from "@/components/ui/TextareaField";
 
 export const SkillsForm = () => {
   return (
     <div className="space-y-3">
-      <FieldLabel htmlFor="skills">Skills (comma-separated)</FieldLabel>
-      <Textarea
+      <TextareaField
         id="skills"
+        label="Skills (comma-separated)"
         placeholder="React, TypeScript, Node.js, Figma, SQL..."
         rows={4}
       />

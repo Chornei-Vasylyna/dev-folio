@@ -10,7 +10,7 @@ export default function Portfolio() {
   const { activeTab } = usePortfolioTab();
 
   return (
-    <form className="flex flex-col gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
+    <div className="flex flex-col gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
       {activeTab === "profile" && <ProfileForm />}
       {activeTab === "experience" && (
         <EntryListForm
@@ -82,6 +82,6 @@ export default function Portfolio() {
           ]}
         />
       )}
-    </form>
+    </div>
   );
 }
