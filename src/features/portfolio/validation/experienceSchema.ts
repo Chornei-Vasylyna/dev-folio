@@ -24,11 +24,12 @@ export const experienceItemSchema = z.object({
     .trim()
     .min(10, "Description must be at least 10 characters")
     .max(1000, "Description is too long (max 1000 characters)")
-    .optional(),
+    .optional()
+    .or(z.literal("")),
 });
 
 export const experienceSchema = z.object({
-  experience: z.array(experienceItemSchema),
+  experience: z.array(experienceItemSchema).default([]),
 });
 
 export type ExperienceFormData = z.infer<typeof experienceSchema>;

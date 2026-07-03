@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const profileSchema = z.object({
-  avatar: z.url().optional(),
+  avatar: z.url("Image URL must be valid").optional(),
   fullName: z
     .string("Full name is required")
     .trim()

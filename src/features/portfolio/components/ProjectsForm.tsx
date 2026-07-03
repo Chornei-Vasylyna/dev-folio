@@ -1,24 +1,27 @@
 import { ImageSquareIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react";
+import { Controller } from "react-hook-form";
 import { PhotoUpload } from "@/components/PhotoUpload";
 import { Button } from "@/components/ui/button";
 import { InputField } from "@/components/ui/InputField";
+import { useProjectsForm } from "../hooks/useProjectsForm";
 
-interface ProjectsFormProps {
-  items: [
-    {
-      name: "";
-      description: "";
-      github_url: "";
-      image_url: "";
-      live_url: "";
-    },
-  ];
-}
+export const ProjectsForm = () => {
+  const { fields, control, register, handleSubmit, append, remove, errors } =
+    useProjectsForm();
 
-export const ProjectsForm = ({ items }: ProjectsFormProps) => {
+  // Handlers
+  const handleAddProject = () =>
+    append({
+      name: "",
+      description: "",
+      githubUrl: "",
+      imageUrl: "",
+      liveUrl: "",
+    });
+
   return (
-    <form className="space-y-4">
-      {items.map((p, i) => (
+    <form id="projects" onSubmit={handleSubmit} className="space-y-4">
+      {fields.map((_, i) => (
         <div
           // biome-ignore lint/suspicious/noArrayIndexKey:  there is no other option
           key={i}
@@ -29,36 +32,64 @@ export const ProjectsForm = ({ items }: ProjectsFormProps) => {
               Project {i + 1}
             </span>
             <Button
+              type="button"
               variant="ghost"
               size="icon"
               className="hover:text-destructive hover:bg-transparent"
+              onClick={() => remove(i)}
             >
               <TrashIcon className="h-4 w-4 " />
             </Button>
           </div>
-          <InputField id="name" label="Name" />
-          <InputField id="description" label="Description" />
+          <InputField
+            id="name"
+            label="Name"
+            error={errors.projects?.[i]?.name?.message}
+            {...register(`projects.${i}.name`)}
+          />
+          <InputField
+            id="description"
+            label="Description"
+            error={errors.projects?.[i]?.description?.message}
+            {...register(`projects.${i}.description`)}
+          />
           <InputField
             id="githubUrl"
             label="GitHub URL"
             placeholder="https://github.com/..."
+            error={errors.projects?.[i]?.githubUrl?.message}
+            {...register(`projects.${i}.githubUrl`)}
           />
-
-          <PhotoUpload
-            label="Project picture"
-            dropzoneText="Click to upload or drag and drop"
-            uploadAreaWidth={60}
-            uploadAreaHeight={30}
-            icon={ImageSquareIcon}
+          <Controller
+            control={control}
+            name={`projects.${i}.imageUrl`}
+            render={({ field }) => (
+              <PhotoUpload
+                label="Project photo"
+                dropzoneText="Click/Drop"
+                uploadAreaHeight={30}
+                uploadAreaWidth={60}
+                icon={ImageSquareIcon}
+                value={field.value || undefined}
+                onAvatarChange={field.onChange}
+              />
+            )}
           />
           <InputField
-            id="liveDemoUrl"
+            id="liveUrl"
             label="Live Demo URL"
             placeholder="https://..."
+            error={errors.projects?.[i]?.liveUrl?.message}
+            {...register(`projects.${i}.liveUrl`)}
           />
         </div>
       ))}
-      <Button variant="outline" className="w-full border-dashed">
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full border-dashed"
+        onClick={handleAddProject}
+      >
         <PlusIcon className="h-4 w-4 mr-2" /> Add project
       </Button>
     </form>

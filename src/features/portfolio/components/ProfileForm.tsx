@@ -23,6 +23,7 @@ export const ProfileForm = () => {
   const { register, handleSubmit, control, errors, isSubmitting } =
     useProfileForm();
   const { setIsSubmitting } = usePortfolioTab();
+  const { activeTab } = usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
@@ -30,7 +31,7 @@ export const ProfileForm = () => {
 
   return (
     <form
-      id="profile"
+      id={activeTab}
       onSubmit={handleSubmit}
       className="grid grid-cols-1 gap-x-4 gap-y-5 md:grid-cols-2"
     >
