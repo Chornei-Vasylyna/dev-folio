@@ -1,8 +1,8 @@
-import { SignOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SheetContent } from "@/components/ui/Sheet";
-import { LINKS, NAV_LINKS } from "@/constants";
+import { NAV_LINKS } from "@/constants";
+import { SignOutButton } from "@/features/auth/components/SignOutButton";
 import { cn } from "@/lib/utils";
 import { isActive } from "@/utils/isActive";
 import { navbarHoverClass } from "./constants";
@@ -12,10 +12,7 @@ interface MobileNavListProps {
   onNavigate?: () => void;
 }
 
-export const MobileNavList = async ({
-  onNavigate,
-  pathname,
-}: MobileNavListProps) => {
+export const MobileNavList = ({ onNavigate, pathname }: MobileNavListProps) => {
   return (
     <SheetContent
       side="right"
@@ -43,17 +40,7 @@ export const MobileNavList = async ({
           </Button>
         ))}
         <div className="my-1 h-px w-full bg-border" />
-        <Button
-          variant="ghost"
-          asChild
-          size="sm"
-          className={cn("w-full justify-start gap-1.5 px-3", navbarHoverClass)}
-          onClick={onNavigate}
-        >
-          <Link href={LINKS.login}>
-            <SignOutIcon className="h-4 w-4" /> <span>Exit</span>
-          </Link>
-        </Button>
+        <SignOutButton className={navbarHoverClass} onClick={onNavigate} />
       </nav>
     </SheetContent>
   );

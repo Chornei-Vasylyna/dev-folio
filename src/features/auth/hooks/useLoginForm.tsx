@@ -1,5 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { LINKS } from "@/constants";
+import { signIn } from "@/features/auth/actions/signIn";
 import {
   type LoginFormData,
   loginSchema,
@@ -19,12 +23,21 @@ export const useLoginForm = () => {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    const { email, password } = data;
+
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      toast.error(error.message);
+      return;
     }
+
+    toast.success("Welcome back!");
+
+    router.push(LINKS.home);
   };
 
   return {

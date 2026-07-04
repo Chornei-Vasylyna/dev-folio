@@ -8,7 +8,7 @@ import { RegisterFooter } from "@/features/auth/components/RegisterFooter";
 import { useRegisterForm } from "@/features/auth/hooks/useRegisterForm";
 import { AuthLayout } from "@/features/auth/layout/AuthLayout";
 
-export default function Login() {
+export default function Register() {
   const { register, handleSubmit, errors, isSubmitting } = useRegisterForm();
 
   return (
@@ -40,7 +40,7 @@ export default function Login() {
           className="w-full"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Creating account" : "Create account"}
+          {isSubmitting ? "Creating account.." : "Create account"}
         </Button>
       </AuthCard>
     </AuthLayout>

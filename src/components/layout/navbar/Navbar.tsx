@@ -29,21 +29,24 @@ export const Navbar = () => {
               DevFolio
             </span>
           </Link>
-          {isLoggedIn && <Navigation /> && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="sm:hidden"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-              onClick={handleToggleMenu}
-            >
-              {isMenuOpen ? (
-                <XIcon className="size-5" />
-              ) : (
-                <ListIcon className="size-5" />
-              )}
-            </Button>
+          {isLoggedIn && (
+            <>
+              <Navigation /> 
+              <Button
+                variant="ghost"
+                size="icon"
+                className="sm:hidden"
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMenuOpen}
+                onClick={handleToggleMenu}
+              >
+                {isMenuOpen ? (
+                  <XIcon className="size-5" />
+                ) : (
+                  <ListIcon className="size-5" />
+                )}
+              </Button>
+            </>
           )}
           {isMenuOpen ? (
             <Navigation mobile onNavigate={handleCloseMenu} />

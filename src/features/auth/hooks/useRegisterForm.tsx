@@ -1,5 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { LINKS } from "@/constants";
+import { signUp } from "@/features/auth/actions/signUp";
 import {
   type RegisterFormData,
   registerSchema,
@@ -20,12 +24,20 @@ export const useRegisterForm = () => {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: RegisterFormData) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    const { email, password } = data;
+
+    const { error } = await signUp(email, password);
+
+    if (error) {
+      toast.error(error.message);
+      return;
     }
+
+    toast.success("Account created successfully.");
+    router.push(LINKS.home);
   };
 
   return {
