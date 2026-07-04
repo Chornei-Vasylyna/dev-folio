@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { emailSchema } from "@/lib/validation/emailSchema";
 
 export const profileSchema = z.object({
   avatar: z.url("Image URL must be valid").optional(),
@@ -14,7 +15,7 @@ export const profileSchema = z.object({
     .min(2, "Specialty must be at least 2 characters")
     .max(100, "Specialty is too long (max 100 characters)"),
 
-  email: z.email("Invalid email address").trim(),
+  email: emailSchema,
 
   phone: z.e164({ error: "Invalid phone number" }),
 

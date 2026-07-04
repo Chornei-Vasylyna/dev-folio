@@ -1,6 +1,6 @@
 import { EyeIcon, EyeSlashIcon, LockSimpleIcon } from "@phosphor-icons/react";
 import { type InputHTMLAttributes, useState } from "react";
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -11,9 +11,15 @@ import {
 interface PasswordInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
+  error?: string;
 }
 
-export const PasswordInput = ({ id, label, ...props }: PasswordInputProps) => {
+export const PasswordInput = ({
+  id,
+  label,
+  error,
+  ...props
+}: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Event handlers
@@ -46,6 +52,7 @@ export const PasswordInput = ({ id, label, ...props }: PasswordInputProps) => {
           )}
         </InputGroupButton>
       </InputGroup>
+      {error && <FieldError>{error}</FieldError>}
     </Field>
   );
 };

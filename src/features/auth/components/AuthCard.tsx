@@ -4,13 +4,15 @@ import { Separator } from "@/components/ui/Separator";
 import { OAuthButtons } from "./OAuthButtons";
 
 interface AuthCardProps {
+  formId: "login" | "register";
   onSubmit?: (e: SubmitEvent<HTMLFormElement>) => void;
 }
 
-export function AuthCard({
-  onSubmit,
+export const AuthCard = ({
+  formId,
+  onSubmit: handleSubmit,
   children,
-}: PropsWithChildren<AuthCardProps>) {
+}: PropsWithChildren<AuthCardProps>) => {
   return (
     <Card className="w-full max-w-sm ">
       <CardContent className="space-y-4">
@@ -24,10 +26,10 @@ export function AuthCard({
           <Separator className="flex-1" />
         </div>
 
-        <form className="space-y-4" onSubmit={onSubmit}>
+        <form id={formId} onSubmit={handleSubmit} className="space-y-4">
           {children}
         </form>
       </CardContent>
     </Card>
   );
-}
+};
