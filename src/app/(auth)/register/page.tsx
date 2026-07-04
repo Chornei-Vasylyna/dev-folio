@@ -34,7 +34,12 @@ export default function Login() {
           {...register("confirmPassword")}
         />
 
-        <Button type="submit" form="register" className="w-full">
+        <Button
+          type="submit"
+          form="register"
+          className="w-full"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Creating account" : "Create account"}
         </Button>
       </AuthCard>

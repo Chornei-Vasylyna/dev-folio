@@ -6,10 +6,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/Sheet";
 import { LINKS } from "@/constants";
+import { useAuth } from "@/hooks/useAuth";
 import { Navigation } from "./Navigation";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   // Event handlers
   const handleToggleMenu = () => setIsMenuOpen((open) => !open);
@@ -27,21 +29,22 @@ export const Navbar = () => {
               DevFolio
             </span>
           </Link>
-          <Navigation />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="sm:hidden"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-            onClick={handleToggleMenu}
-          >
-            {isMenuOpen ? (
-              <XIcon className="size-5" />
-            ) : (
-              <ListIcon className="size-5" />
-            )}
-          </Button>
+          {isLoggedIn && <Navigation /> && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="sm:hidden"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+              onClick={handleToggleMenu}
+            >
+              {isMenuOpen ? (
+                <XIcon className="size-5" />
+              ) : (
+                <ListIcon className="size-5" />
+              )}
+            </Button>
+          )}
           {isMenuOpen ? (
             <Navigation mobile onNavigate={handleCloseMenu} />
           ) : null}

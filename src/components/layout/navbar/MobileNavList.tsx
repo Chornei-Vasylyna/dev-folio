@@ -12,7 +12,10 @@ interface MobileNavListProps {
   onNavigate?: () => void;
 }
 
-export const MobileNavList = ({ onNavigate, pathname }: MobileNavListProps) => {
+export const MobileNavList = async ({
+  onNavigate,
+  pathname,
+}: MobileNavListProps) => {
   return (
     <SheetContent
       side="right"
