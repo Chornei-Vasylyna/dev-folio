@@ -24,7 +24,7 @@ export const Header = () => {
           type="submit"
           form={activeTab}
           disabled={isSubmitting}
-          className="bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white"
+          className="bg-linear-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white transition-[--tw-gradient-from,--tw-gradient-to] duration-250"
         >
           <FloppyDiskIcon className="h-4 w-4 mr-1" />
           {isSubmitting ? "Saving..." : "Save"}
