@@ -3,7 +3,7 @@
 import { ArrowSquareOutIcon, GithubLogoIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
-import type { Projects } from "@/lib/types/UserType";
+import type { Projects } from "@/lib/types/User.types";
 
 export default function ResumeProjects({ items }: { items?: Projects }) {
   if (!items || items.length === 0) return null;

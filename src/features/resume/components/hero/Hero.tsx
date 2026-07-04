@@ -3,16 +3,68 @@
 import {
   DownloadIcon,
   EnvelopeIcon,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
   PhoneIcon,
+  TelegramLogoIcon,
   UserIcon,
 } from "@phosphor-icons/react";
+import { pdf } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { socials, student } from "./Hero.constants";
+import { ResumePDF } from "@/features/resume/pdf/ResumePDF";
+import type { User } from "@/lib/types/User.types";
 
-export const Hero = () => {
+interface HeroProps {
+  user: User;
+}
+
+export const Hero = ({ user }: HeroProps) => {
+  const {
+    avatar,
+    fullName,
+    specialty,
+    email,
+    phone,
+    telegramUrl,
+    githubUrl,
+    linkedinUrl,
+  } = user;
+
+  const safeName = fullName.replace(/[<>:"/\\|?*]/g, "_").replace(/\s+/g, "_");
+  const fileName = `${safeName}_resume.pdf`;
+
+  const socials = [
+    {
+      show: githubUrl,
+      href: githubUrl,
+      icon: GithubLogoIcon,
+      label: "GitHub",
+    },
+    {
+      show: linkedinUrl,
+      href: linkedinUrl,
+      icon: LinkedinLogoIcon,
+      label: "LinkedIn",
+    },
+    {
+      show: telegramUrl,
+      href: telegramUrl,
+      icon: TelegramLogoIcon,
+      label: "Telegram",
+    },
+  ].filter((s) => s.show);
+
+  // Handlers
+  const handleDownload = async () => {
+    const blob = await pdf(<ResumePDF user={user} />).toBlob();
+
+    saveAs(blob, fileName);
+  };
+
   return (
     <section className="relative overflow-hidden rounded-3xl border border-white/20 bg-linear-to-br from-slate-900 via-indigo-950 to-slate-900 px-4 py-8 sm:px-6 sm:py-10 md:py-12 text-white">
       <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl" />
@@ -24,13 +76,9 @@ export const Hero = () => {
         <div className="relative shrink-0">
           <div className="absolute inset-0 -m-1.5 rounded-full bg-linear-to-br from-indigo-400 to-blue-500 opacity-60 blur-md " />
           <Avatar className="relative h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 border-4 border-white/20 ring-1 ring-white/10">
-            <AvatarImage
-              src={student.photo_url}
-              alt={student.full_name}
-              className="object-cover"
-            />
+            <AvatarImage src={avatar} alt={fullName} className="object-cover" />
             <AvatarFallback className="bg-white/10">
-              {student.photo_url === "" && (
+              {avatar === "" && (
                 <UserIcon className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 text-white/60" />
               )}
             </AvatarFallback>
@@ -44,24 +92,24 @@ export const Hero = () => {
 
         <div className="flex-1 text-center md:text-left">
           <p className="text-sm font-medium uppercase tracking-widest text-indigo-300 ">
-            {student.title}
+            {specialty}
           </p>
           <h1 className="mt-1 text-3xl md:text-4xl font-bold tracking-tight">
-            {student.full_name}
+            {fullName}
           </h1>
 
           <div className="mt-3 flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1.5 text-sm text-white/70">
-            {student.email && (
+            {email && (
               <Link
-                href={`mailto:${student.email}`}
+                href={`mailto:${email}`}
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
               >
-                <EnvelopeIcon className="h-4 w-4" /> {student.email}
+                <EnvelopeIcon className="h-4 w-4" /> {email}
               </Link>
             )}
-            {student.phone && (
+            {phone && (
               <span className="inline-flex items-center gap-1.5">
-                <PhoneIcon className="h-4 w-4" /> {student.phone}
+                <PhoneIcon className="h-4 w-4" /> {phone}
               </span>
             )}
           </div>
@@ -86,7 +134,7 @@ export const Hero = () => {
               </Button>
             ))}
             <Button
-              // onClick={() => window.print()}
+              onClick={handleDownload}
               className="gap-2 rounded-xl bg-linear-to-r from-indigo-500 to-blue-500 px-5 py-2.5 text-sm font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:from-indigo-400 hover:to-blue-400 transition-[--tw-gradient-from,--tw-gradient-to] duration-250"
             >
               <DownloadIcon className="h-4 w-4" /> Download PDF

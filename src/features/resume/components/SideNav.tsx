@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { User } from "@/lib/types/UserType";
+import type { User } from "@/lib/types/User.types";
 
 type NavItem = {
   href: string;

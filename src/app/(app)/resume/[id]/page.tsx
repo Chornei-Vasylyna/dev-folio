@@ -35,7 +35,7 @@ export default async function Resume({ params }: ResumeProps) {
 
   return (
     <div className="container px-4 py-8">
-      <Hero />
+      <Hero user={mockUser} />
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_120px] gap-14">
         <div className="space-y-12">
           {bio && (
@@ -84,7 +84,7 @@ export default async function Resume({ params }: ResumeProps) {
             </section>
           )}
           <section id="projects" className="scroll-mt-16">
-            <Projects items={projects}/>
+            <Projects items={projects} />
           </section>
 
           {(email || phone || telegramUrl) && (

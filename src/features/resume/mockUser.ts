@@ -1,6 +1,6 @@
 export const mockUser = {
   avatar: "",
-  fullName: "Vasilina Kovalenko",
+  fullName: "Vasylyna Chornei",
   specialty: "Frontend Developer",
   email: "vasilina.kovalenko@gmail.com",
   phone: "+380671234567",
