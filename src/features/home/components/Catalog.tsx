@@ -2,17 +2,22 @@
 
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import type { PublicProfiles } from "../actions/getPublicProfiles";
+import { useProfileSearch } from "../hooks/useProfileSearch";
 import { DeveloperCard } from "./DeveloperCard";
 
-export const Catalog = () => {
-  const [search, setSearch] = useState("");
+type CatalogProps = {
+  profiles: PublicProfiles;
+};
+
+export const Catalog = ({ profiles }: CatalogProps) => {
+  const { search, setSearch, filteredProfiles } = useProfileSearch(profiles);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearch(e.target.value);
@@ -26,15 +31,16 @@ export const Catalog = () => {
             <MagnifyingGlassIcon className="h-4 w-4 text-muted-foreground" />
           </InputGroupAddon>
           <InputGroupInput
-            placeholder="Search by name or specialty..."
+            placeholder="Search by name, specialty or skill..."
             value={search}
             onChange={handleInputChange}
-            className=""
           />
         </InputGroup>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <DeveloperCard />
+        {filteredProfiles.map((p) => (
+          <DeveloperCard key={p.user_id} profile={p} />
+        ))}
       </div>
     </section>
   );

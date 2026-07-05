@@ -25,7 +25,7 @@ interface ResumeProps {
 
 export default async function Resume({ params }: ResumeProps) {
   const { id } = await params;
-console.log(id)
+  
   const profileObj = await getProfile(id);
   const experienceArr = await getExperience(id);
   const educationArr = await getEducation(id);

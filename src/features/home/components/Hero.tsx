@@ -11,7 +11,11 @@ import { Button } from "@/components/ui/button";
 import { LINKS } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 
-export const Hero = () => {
+interface HeroProps {
+  userCount: number
+}
+
+export const Hero = ({userCount}: HeroProps) => {
   const { isLoggedIn } = useAuth();
 
   return (
@@ -54,7 +58,7 @@ export const Hero = () => {
         )}
         <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <UsersIcon className="h-4 w-4 text-indigo-500" /> {5} user(-s)
+            <UsersIcon className="h-4 w-4 text-indigo-500" /> {userCount} user(-s)
           </div>
           <div className="flex items-center gap-2">
             <FileTextIcon className="h-4 w-4 text-indigo-500" /> PDF export
