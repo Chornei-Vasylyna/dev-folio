@@ -7,12 +7,12 @@ import {
   skillsSchema,
 } from "@/features/portfolio/validation/skillsSchema";
 import type { SkillsData } from "@/lib/supabase/types";
-import { upsertSkills } from "../actions/UPSERT/upsertSkills";
+import { upsertSkills } from "../actions/upsert/upsertSkills";
 import { mapSkillsToForm } from "../mappers/skills.mapper";
 
 export const useSkillsForm = (initialData: SkillsData | null) => {
   const router = useRouter();
-  
+
   const {
     register,
     handleSubmit,

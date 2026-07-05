@@ -2,19 +2,13 @@
 
 import { createClient } from "@/lib/supabase/server";
 
-export const getExperience = async () => {
+export const getExperience = async (userId: string) => {
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return [];
 
   const { data, error } = await supabase
     .from("experiences")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (error) throw error;

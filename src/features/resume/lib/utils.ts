@@ -7,10 +7,3 @@ export const getItemTitle = (item: TimelineItem): string => {
 export const getItemOrganization = (item: TimelineItem): string => {
   return "company" in item ? item.company : item.institution;
 };
-
-export const parseSkills = (skills: string | undefined) => {
-  return (skills || "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-};

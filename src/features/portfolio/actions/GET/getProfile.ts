@@ -1,18 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 
-export const getProfile = async () => {
+export const getProfile = async (userId: string) => {
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return null;
 
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .maybeSingle();
 
   if (error) throw error;

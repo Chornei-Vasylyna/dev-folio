@@ -7,7 +7,7 @@ import {
   projectsSchema,
 } from "@/features/portfolio/validation/projectsSchema";
 import type { ProjectsData } from "@/lib/supabase/types";
-import { upsertProjects } from "../actions/UPSERT/upsertProjects";
+import { upsertProjects } from "../actions/upsert/upsertProjects";
 import { mapProjectsToForm } from "../mappers/projects.mapper";
 
 export const useProjectsForm = (initialData: ProjectsData | null) => {

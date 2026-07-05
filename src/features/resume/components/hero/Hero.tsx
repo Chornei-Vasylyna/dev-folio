@@ -16,13 +16,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ResumePDF } from "@/features/resume/pdf/ResumePDF";
-import type { User } from "@/lib/types/User.types";
+import type { ResumeData } from "@/lib/supabase/types";
 
 interface HeroProps {
-  user: User;
+  resume: ResumeData;
 }
 
-export const Hero = ({ user }: HeroProps) => {
+export const Hero = ({ resume }: HeroProps) => {
   const {
     avatar,
     fullName,
@@ -32,7 +32,7 @@ export const Hero = ({ user }: HeroProps) => {
     telegramUrl,
     githubUrl,
     linkedinUrl,
-  } = user;
+  } = resume;
 
   const safeName = fullName.replace(/[<>:"/\\|?*]/g, "_").replace(/\s+/g, "_");
   const fileName = `${safeName}_resume.pdf`;
@@ -60,7 +60,7 @@ export const Hero = ({ user }: HeroProps) => {
 
   // Handlers
   const handleDownload = async () => {
-    const blob = await pdf(<ResumePDF user={user} />).toBlob();
+    const blob = await pdf(<ResumePDF resume={resume} />).toBlob();
 
     saveAs(blob, fileName);
   };
@@ -76,12 +76,17 @@ export const Hero = ({ user }: HeroProps) => {
         <div className="relative shrink-0">
           <div className="absolute inset-0 -m-1.5 rounded-full bg-linear-to-br from-indigo-400 to-blue-500 opacity-60 blur-md " />
           <Avatar className="relative h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 border-4 border-white/20 ring-1 ring-white/10">
-            <AvatarImage src={avatar} alt={fullName} className="object-cover" />
-            <AvatarFallback className="bg-white/10">
-              {avatar === "" && (
+            {avatar ? (
+              <AvatarImage
+                src={avatar}
+                alt={fullName}
+                className="object-cover"
+              />
+            ) : (
+              <AvatarFallback className="bg-white/10">
                 <UserIcon className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 text-white/60" />
-              )}
-            </AvatarFallback>
+              </AvatarFallback>
+            )}
           </Avatar>
 
           <Badge className="absolute -bottom-1 left-3 sm:left-3.5 md:left-5.5 max-w-19 sm:max-w-22 gap-1 rounded-full bg-emerald-500 px-1.5 sm:px-2 py-0.5 sm:py-1 text-center text-[9px] sm:text-[10px] font-semibold leading-tight text-white shadow-md hover:bg-emerald-500 line-clamp-2 whitespace-normal">
@@ -124,7 +129,8 @@ export const Hero = ({ user }: HeroProps) => {
                 className="h-10 w-10 rounded-xl bg-white/10 ring-1 ring-white/10 backdrop-blur hover:bg-white/20 text-white"
               >
                 <Link
-                  href={s.href}
+                  // biome-ignore lint/style/noNonNullAssertion: Safe here—TypeScript just can't infer it
+                  href={s.href!}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.label}

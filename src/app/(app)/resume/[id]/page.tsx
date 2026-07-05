@@ -6,13 +6,18 @@ import {
   TelegramLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
+import { getEducation } from "@/features/portfolio/actions/get/getEducation";
+import { getExperience } from "@/features/portfolio/actions/get/getExperience";
+import { getProfile } from "@/features/portfolio/actions/get/getProfile";
+import { getProjects } from "@/features/portfolio/actions/get/getProjects";
+import { getSkills } from "@/features/portfolio/actions/get/getSkills";
 import { Hero } from "@/features/resume/components/hero/Hero";
 import Projects from "@/features/resume/components/Projects";
 import { SideNav } from "@/features/resume/components/SideNav";
 import { Timeline } from "@/features/resume/components/timeline";
-import { parseSkills } from "@/features/resume/lib/utils";
-import { mockUser } from "@/features/resume/mockUser";
+import { mapResume } from "@/features/resume/mappers/mapResume.mapper";
 
 interface ResumeProps {
   params: Promise<{ id: string }>;
@@ -20,6 +25,25 @@ interface ResumeProps {
 
 export default async function Resume({ params }: ResumeProps) {
   const { id } = await params;
+console.log(id)
+  const profileObj = await getProfile(id);
+  const experienceArr = await getExperience(id);
+  const educationArr = await getEducation(id);
+  const skillsArr = await getSkills(id);
+  const projectsArr = await getProjects(id);
+
+  if (!profileObj) {
+    notFound();
+  }
+
+  const resume = mapResume({
+    profile: profileObj,
+    experience: experienceArr,
+    education: educationArr,
+    skills: skillsArr,
+    projects: projectsArr,
+  });
+
   const {
     bio,
     experience,
@@ -28,14 +52,12 @@ export default async function Resume({ params }: ResumeProps) {
     email,
     phone,
     telegramUrl,
-    skills: skillsRaw,
-  } = mockUser;
-
-  const skills = parseSkills(skillsRaw);
+    skills,
+  } = resume;
 
   return (
     <div className="container px-4 py-8">
-      <Hero user={mockUser} />
+      <Hero resume={resume} />
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_120px] gap-14">
         <div className="space-y-12">
           {bio && (
@@ -77,7 +99,7 @@ export default async function Resume({ params }: ResumeProps) {
                     key={i}
                     className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-600"
                   >
-                    {s}
+                    {s.name}
                   </span>
                 ))}
               </div>
@@ -123,7 +145,7 @@ export default async function Resume({ params }: ResumeProps) {
             </section>
           )}
         </div>
-        <SideNav user={mockUser} />
+        <SideNav resume={resume} />
       </div>
       <Footer />
     </div>

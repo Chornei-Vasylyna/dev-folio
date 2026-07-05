@@ -54,7 +54,7 @@ export const Hero = () => {
         )}
         <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <UsersIcon className="h-4 w-4 text-indigo-500" /> {5} student(-s)
+            <UsersIcon className="h-4 w-4 text-indigo-500" /> {5} user(-s)
           </div>
           <div className="flex items-center gap-2">
             <FileTextIcon className="h-4 w-4 text-indigo-500" /> PDF export

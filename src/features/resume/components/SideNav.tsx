@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { User } from "@/lib/types/User.types";
+import type { ResumeData } from "@/lib/supabase/types";
 
 type NavItem = {
   href: string;
@@ -8,10 +8,10 @@ type NavItem = {
 };
 
 type ResumeSidebarNavProps = {
-  user: User;
+  resume: ResumeData;
 };
 
-export const SideNav = ({ user }: ResumeSidebarNavProps) => {
+export const SideNav = ({ resume }: ResumeSidebarNavProps) => {
   const {
     bio,
     experience,
@@ -21,7 +21,7 @@ export const SideNav = ({ user }: ResumeSidebarNavProps) => {
     email,
     phone,
     telegramUrl,
-  } = user;
+  } = resume;
 
   const navItems: NavItem[] = [
     { href: "#about", label: "About", show: Boolean(bio) },
@@ -34,7 +34,7 @@ export const SideNav = ({ user }: ResumeSidebarNavProps) => {
     {
       href: "#skills",
       label: "Skills",
-      show: Boolean(skills && skills.trim().length > 0),
+      show: Boolean(skills && skills.length > 0),
     },
     { href: "#projects", label: "Projects", show: projects.length > 0 },
     {

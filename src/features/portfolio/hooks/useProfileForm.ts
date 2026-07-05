@@ -7,7 +7,7 @@ import {
   profileSchema,
 } from "@/features/portfolio/validation/profileSchema";
 import type { ProfileData } from "@/lib/supabase/types";
-import { upsertProfile } from "../actions/UPSERT/upsertProfile";
+import { upsertProfile } from "../actions/upsert/upsertProfile";
 import { mapProfileToForm } from "../mappers/profile.mapper";
 
 export const useProfileForm = (initialData: ProfileData | null) => {

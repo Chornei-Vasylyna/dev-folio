@@ -1,16 +1,15 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: no other options */
 
 import { Document, Image, Link, Page, Text, View } from "@react-pdf/renderer";
-import { parseSkills } from "@/features/resume/lib/utils";
-import type { User } from "@/lib/types/User.types";
+import type { ResumeData } from "@/lib/supabase/types";
 import { styles } from "./ResumePDF.styles";
 import { SectionTitle } from "./SectionTitle";
 
 interface ResumePDFProps {
-  user: User;
+  resume: ResumeData;
 }
 
-export const ResumePDF = ({ user }: ResumePDFProps) => {
+export const ResumePDF = ({ resume }: ResumePDFProps) => {
   const {
     avatar,
     fullName,
@@ -19,13 +18,11 @@ export const ResumePDF = ({ user }: ResumePDFProps) => {
     phone,
     telegramUrl,
     bio,
-    skills: skillsRaw,
+    skills,
     experience,
     education,
     projects,
-  } = user;
-
-  const skills = parseSkills(skillsRaw);
+  } = resume;
 
   return (
     <Document title={`${fullName} — Resume`}>
@@ -103,8 +100,8 @@ export const ResumePDF = ({ user }: ResumePDFProps) => {
             <SectionTitle title="Skills" />
             <View style={styles.skillsRow}>
               {skills.map((s) => (
-                <Text key={s} style={styles.skillPill}>
-                  {s}
+                <Text key={s.name} style={styles.skillPill}>
+                  {s.name}
                 </Text>
               ))}
             </View>
@@ -120,14 +117,14 @@ export const ResumePDF = ({ user }: ResumePDFProps) => {
                 <Text style={styles.projectName}>{p.name}</Text>
                 <Text style={styles.projectDescription}>{p.description}</Text>
                 <View style={styles.projectLinksRow}>
-                  {p.githubUrl && (
-                    <Link src={p.githubUrl} style={styles.projectLink}>
-                      {p.githubUrl}
+                  {p.github_url && (
+                    <Link src={p.github_url} style={styles.projectLink}>
+                      {p.github_url}
                     </Link>
                   )}
-                  {p.liveUrl && (
-                    <Link src={p.liveUrl} style={styles.projectLink}>
-                      {p.liveUrl}
+                  {p.live_url && (
+                    <Link src={p.live_url} style={styles.projectLink}>
+                      {p.live_url}
                     </Link>
                   )}
                 </View>

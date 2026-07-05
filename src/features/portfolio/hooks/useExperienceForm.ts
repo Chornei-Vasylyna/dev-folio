@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { ExperienceData } from "@/lib/supabase/types";
-import { upsertExperiences } from "../actions/UPSERT/upsertExperience";
+import { upsertExperiences } from "../actions/upsert/upsertExperience";
 import { mapExperienceToForm } from "../mappers/experience.mapper";
 import {
   type ExperienceFormData,

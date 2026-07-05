@@ -7,7 +7,7 @@ import {
   educationSchema,
 } from "@/features/portfolio/validation/educationSchema";
 import type { EducationData } from "@/lib/supabase/types";
-import { upsertEducation } from "../actions/UPSERT/upsertEducation";
+import { upsertEducation } from "../actions/upsert/upsertEducation";
 import { mapEducationToForm } from "../mappers/education.mapper";
 
 export const useEducationForm = (initialData: EducationData | null) => {
