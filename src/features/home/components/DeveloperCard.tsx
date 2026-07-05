@@ -42,8 +42,10 @@ export const DeveloperCard = ({ profile }: DeveloperCardProps) => {
         </div>
         <div className="absolute h-40 bg-linear-to-br from-indigo-50 to-blue-50"></div>
         <CardHeader>
-          <CardTitle>{full_name}</CardTitle>
-          <CardDescription className="mb-2">{specialty}</CardDescription>
+          <CardTitle className="truncate">{full_name}</CardTitle>
+          <CardDescription className="mb-2 truncate">
+            {specialty}
+          </CardDescription>
           <div className="flex h-6 flex-wrap content-start gap-2">
             {visibleSkills.map((skill, i) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: no other options
