@@ -2,7 +2,7 @@ import { z } from "zod";
 import { emailSchema } from "@/lib/validation/emailSchema";
 
 export const profileSchema = z.object({
-  avatar: z.url("Image URL must be valid").optional(),
+  avatar: z.url("Image URL must be valid").optional().or(z.literal("")),
   fullName: z
     .string("Full name is required")
     .trim()

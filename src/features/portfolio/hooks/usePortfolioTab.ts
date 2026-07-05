@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PortfolioTabContext } from "@/features/portfolio/providers/PortfolioTabContext";
+import { PortfolioTabContext } from "@/features/portfolio/providers/PortfolioTabProvider";
 
 export const usePortfolioTab = () => {
   const context = useContext(PortfolioTabContext);

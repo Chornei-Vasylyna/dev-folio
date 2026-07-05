@@ -1,10 +1,15 @@
+import type { EducationData } from "@/lib/supabase/types";
 import { useEducationForm } from "../hooks/useEducationForm";
 import { usePortfolioTab } from "../hooks/usePortfolioTab";
 import { EntryList } from "./EntryList";
 
-export const EducationForm = () => {
+interface EducationFormProps {
+  educationData: EducationData | null;
+}
+
+export const EducationForm = ({educationData}: EducationFormProps) => {
   const { fields, register, handleSubmit, append, remove, errors } =
-    useEducationForm();
+    useEducationForm(educationData);
   const { activeTab } = usePortfolioTab();
 
   return (

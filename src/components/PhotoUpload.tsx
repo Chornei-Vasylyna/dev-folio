@@ -3,6 +3,7 @@
 import { FileUploaderRegular } from "@uploadcare/react-uploader/next";
 import "@uploadcare/react-uploader/core.css";
 import type { IconProps } from "@phosphor-icons/react";
+import { PencilSimpleIcon } from "@phosphor-icons/react";
 import type {
   OutputFileEntry,
   UploadCtxProvider,
@@ -20,6 +21,7 @@ interface PhotoUploadProps {
   uploadAreaWidth: number;
   uploadAreaHeight: number;
   icon: ComponentType<IconProps>;
+  photoAltText: string;
   value?: string;
   onAvatarChange: (url: string | null) => void;
 }
@@ -30,6 +32,7 @@ export const PhotoUpload = ({
   uploadAreaWidth,
   uploadAreaHeight,
   icon: Icon,
+  photoAltText,
   value,
   onAvatarChange,
 }: PhotoUploadProps) => {
@@ -96,13 +99,30 @@ export const PhotoUpload = ({
         onDrop={handleDrop}
         style={uploadAreaStyle}
         className={cn(
-          "relative overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center p-0",
+          "group relative overflow-hidden cursor-pointer border-2 border-dashed border-border transition-all duration-250 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center justify-center p-0",
           roundedClass,
           isDragging && "border-indigo-400 bg-indigo-50/40",
+          value && "border-0 hover:border-0",
         )}
       >
         {value ? (
-          <Image src={value} alt="User avatar" fill className="object-cover" />
+          <>
+            <Image
+              src={value}
+              alt={photoAltText}
+              fill
+              className="object-cover"
+            />
+            <div
+              className={cn(
+                "absolute inset-0 flex flex-col items-center justify-center gap-1 bg-black/50 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100",
+                roundedClass,
+              )}
+            >
+              <PencilSimpleIcon className="w-5 h-5" />
+              <p className="text-xs font-medium">Edit photo</p>
+            </div>
+          </>
         ) : (
           <div className="flex flex-col items-center justify-center text-muted-foreground">
             <Icon className="w-5 h-5 mb-1 " />

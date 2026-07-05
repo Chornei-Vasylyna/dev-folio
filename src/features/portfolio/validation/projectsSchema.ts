@@ -11,8 +11,12 @@ export const projectItemSchema = z.object({
     .trim()
     .min(10, "Description must be at least 10 characters")
     .max(1000, "Description is too long (max 1000 characters)"),
-  githubUrl: z.url("GitHub URL must be valid").trim(),
-  imageUrl: z.url("Image URL must be valid").optional(),
+  githubUrl: z
+    .url("GitHub URL must be valid")
+    .trim()
+    .optional()
+    .or(z.literal("")),
+  imageUrl: z.url("Image URL must be valid").optional().or(z.literal("")),
   liveUrl: z
     .url("Live Demo URL must be valid")
     .trim()

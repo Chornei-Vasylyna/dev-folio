@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   type SkillsFormData,
   skillsSchema,
 } from "@/features/portfolio/validation/skillsSchema";
+import type { SkillsData } from "@/lib/supabase/types";
+import { upsertSkills } from "../actions/UPSERT/upsertSkills";
+import { mapSkillsToForm } from "../mappers/skills.mapper";
 
-export const useSkillsForm = (initialData?: Partial<SkillsFormData>) => {
+export const useSkillsForm = (initialData: SkillsData | null) => {
+  const router = useRouter();
+  
   const {
     register,
     handleSubmit,
@@ -14,15 +21,22 @@ export const useSkillsForm = (initialData?: Partial<SkillsFormData>) => {
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(skillsSchema as any),
     defaultValues: {
-      skills: initialData?.skills || "",
+      skills: mapSkillsToForm(initialData),
     },
   });
 
   const onSubmit = async (data: SkillsFormData) => {
     try {
-      console.log("Skills data ready for save:", data.skills);
-    } catch (error) {
-      console.error(error);
+      const skillsArray = data.skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      await upsertSkills(skillsArray);
+      router.refresh();
+      toast.success("Skills saved");
+    } catch {
+      toast.error("Failed to save skills");
     }
   };
 

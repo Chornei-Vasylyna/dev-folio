@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   type EducationFormData,
   educationSchema,
 } from "@/features/portfolio/validation/educationSchema";
+import type { EducationData } from "@/lib/supabase/types";
+import { upsertEducation } from "../actions/UPSERT/upsertEducation";
+import { mapEducationToForm } from "../mappers/education.mapper";
 
-export const useEducationForm = (initialData?: EducationFormData) => {
+export const useEducationForm = (initialData: EducationData | null) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -15,9 +22,7 @@ export const useEducationForm = (initialData?: EducationFormData) => {
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(educationSchema as any),
     defaultValues: {
-      education: initialData?.education || [
-        { specialty: "", institution: "", period: "", description: "" },
-      ],
+      education: mapEducationToForm(initialData),
     },
   });
 
@@ -28,9 +33,11 @@ export const useEducationForm = (initialData?: EducationFormData) => {
 
   const onSubmit = async (data: EducationFormData) => {
     try {
-      console.log("Education data ready for save:", data.education);
-    } catch (error) {
-      console.error(error);
+      await upsertEducation(data);
+      router.refresh();
+      toast.success("Education saved");
+    } catch {
+      toast.error("Failed to save education");
     }
   };
 

@@ -1,10 +1,15 @@
+import type { ExperienceData } from "@/lib/supabase/types";
 import { useExperienceForm } from "../hooks/useExperienceForm";
 import { usePortfolioTab } from "../hooks/usePortfolioTab";
 import { EntryList } from "./EntryList";
 
-export const ExperienceForm = () => {
+interface ExperienceFormProps {
+  experienceData: ExperienceData | null;
+}
+
+export const ExperienceForm = ({ experienceData }: ExperienceFormProps) => {
   const { fields, register, handleSubmit, append, remove, errors } =
-    useExperienceForm();
+    useExperienceForm(experienceData);
   const { activeTab } = usePortfolioTab();
 
   return (

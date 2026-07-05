@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { Header } from "@/features/portfolio/components/layout/Header";
 import { Sidebar } from "@/features/portfolio/components/sidebar";
-import { PortfolioTabProvider } from "@/features/portfolio/providers/PortfolioTabContext";
+import { PortfolioTabProvider } from "@/features/portfolio/providers/PortfolioTabProvider";
 
 export default function PortfolioLayout({ children }: PropsWithChildren) {
   return (

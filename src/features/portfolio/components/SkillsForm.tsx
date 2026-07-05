@@ -1,10 +1,17 @@
+"use client";
+
 import { useEffect } from "react";
 import { TextareaField } from "@/components/ui/TextareaField";
+import type { SkillsData } from "@/lib/supabase/types";
 import { usePortfolioTab } from "../hooks/usePortfolioTab";
 import { useSkillsForm } from "../hooks/useSkillsForm";
 
-export const SkillsForm = () => {
-  const { register, handleSubmit, errors, isSubmitting } = useSkillsForm();
+interface SkillsFormProps {
+  skillsData: SkillsData | null;
+}
+
+export const SkillsForm = ({ skillsData }: SkillsFormProps) => {
+  const { register, handleSubmit, errors, isSubmitting } = useSkillsForm(skillsData);
   const { setIsSubmitting } = usePortfolioTab();
 
   useEffect(() => {

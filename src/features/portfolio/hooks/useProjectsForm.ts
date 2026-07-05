@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   type ProjectsFormData,
   projectsSchema,
 } from "@/features/portfolio/validation/projectsSchema";
+import type { ProjectsData } from "@/lib/supabase/types";
+import { upsertProjects } from "../actions/UPSERT/upsertProjects";
+import { mapProjectsToForm } from "../mappers/projects.mapper";
 
-export const useProjectsForm = (initialData?: ProjectsFormData) => {
+export const useProjectsForm = (initialData: ProjectsData | null) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -15,15 +22,7 @@ export const useProjectsForm = (initialData?: ProjectsFormData) => {
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(projectsSchema as any),
     defaultValues: {
-      projects: initialData?.projects || [
-        {
-          name: "",
-          description: "",
-          githubUrl: "",
-          imageUrl: "",
-          liveUrl: "",
-        },
-      ],
+      projects: mapProjectsToForm(initialData),
     },
   });
 
@@ -34,9 +33,11 @@ export const useProjectsForm = (initialData?: ProjectsFormData) => {
 
   const onSubmit = async (data: ProjectsFormData) => {
     try {
-      console.log("Projects data ready for save:", data.projects);
-    } catch (error) {
-      console.error(error);
+      await upsertProjects(data);
+      router.refresh();
+      toast.success("Projects saved");
+    } catch {
+      toast.error("Failed to save projects");
     }
   };
 

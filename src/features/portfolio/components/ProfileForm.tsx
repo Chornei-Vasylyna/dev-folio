@@ -18,10 +18,15 @@ import { Separator } from "@/components/ui/Separator";
 import { TextareaField } from "@/components/ui/TextareaField";
 import { usePortfolioTab } from "@/features/portfolio/hooks/usePortfolioTab";
 import { useProfileForm } from "@/features/portfolio/hooks/useProfileForm";
+import type { ProfileData } from "@/lib/supabase/types";
 
-export const ProfileForm = () => {
+interface ProfileFormProps {
+  profileData: ProfileData | null;
+}
+
+export const ProfileForm = ({ profileData }: ProfileFormProps) => {
   const { register, handleSubmit, control, errors, isSubmitting } =
-    useProfileForm();
+    useProfileForm(profileData);
   const { setIsSubmitting } = usePortfolioTab();
   const { activeTab } = usePortfolioTab();
 
@@ -48,6 +53,7 @@ export const ProfileForm = () => {
               uploadAreaHeight={28}
               uploadAreaWidth={28}
               icon={UploadSimpleIcon}
+              photoAltText="User avatar"
             />
           )}
         />

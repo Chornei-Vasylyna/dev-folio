@@ -3,11 +3,16 @@ import { Controller } from "react-hook-form";
 import { PhotoUpload } from "@/components/PhotoUpload";
 import { Button } from "@/components/ui/button";
 import { InputField } from "@/components/ui/InputField";
+import type { ProjectsData } from "@/lib/supabase/types";
 import { useProjectsForm } from "../hooks/useProjectsForm";
 
-export const ProjectsForm = () => {
+interface ProjectsFormProps {
+  projectsData: ProjectsData | null;
+}
+
+export const ProjectsForm = ({ projectsData }: ProjectsFormProps) => {
   const { fields, control, register, handleSubmit, append, remove, errors } =
-    useProjectsForm();
+    useProjectsForm(projectsData);
 
   // Handlers
   const handleAddProject = () =>
@@ -72,6 +77,7 @@ export const ProjectsForm = () => {
                 icon={ImageSquareIcon}
                 value={field.value || undefined}
                 onAvatarChange={field.onChange}
+                photoAltText="Project photo"
               />
             )}
           />

@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   type ProfileFormData,
   profileSchema,
 } from "@/features/portfolio/validation/profileSchema";
+import type { ProfileData } from "@/lib/supabase/types";
+import { upsertProfile } from "../actions/UPSERT/upsertProfile";
+import { mapProfileToForm } from "../mappers/profile.mapper";
 
-export const useProfileForm = (initialData?: Partial<ProfileFormData>) => {
+export const useProfileForm = (initialData: ProfileData | null) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -14,27 +21,16 @@ export const useProfileForm = (initialData?: Partial<ProfileFormData>) => {
   } = useForm<ProfileFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(profileSchema as any),
-    defaultValues: {
-      avatar: initialData?.avatar ?? undefined,
-      fullName: initialData?.fullName || "",
-      specialty: initialData?.specialty || "",
-      email: initialData?.email || "",
-      phone: initialData?.phone || "",
-      githubUrl: initialData?.githubUrl || "",
-      linkedinUrl: initialData?.linkedinUrl || "",
-      telegramUrl: initialData?.telegramUrl || "",
-      bio: initialData?.bio || "",
-    },
+    defaultValues: mapProfileToForm(initialData),
   });
 
   const onSubmit = async (data: ProfileFormData) => {
     try {
-      console.log("Валідація пройшла успішно! Дані готові до БД:", data);
-
-      // ТУТ буде виклик Server Action (запис у базу)
-      // await updateProfile(data);
-    } catch (error) {
-      console.error("Помилка при збереженні профілю:", error);
+      await upsertProfile(data);
+      router.refresh();
+      toast.success("Profile saved");
+    } catch {
+      toast.error("Failed to save profile");
     }
   };
 

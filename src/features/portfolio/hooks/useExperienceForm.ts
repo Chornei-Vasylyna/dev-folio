@@ -1,11 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import type { ExperienceData } from "@/lib/supabase/types";
+import { upsertExperiences } from "../actions/UPSERT/upsertExperience";
+import { mapExperienceToForm } from "../mappers/experience.mapper";
 import {
   type ExperienceFormData,
   experienceSchema,
 } from "../validation/experienceSchema";
 
-export const useExperienceForm = (initialData?: ExperienceFormData) => {
+export const useExperienceForm = (initialData: ExperienceData | null) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -15,9 +22,7 @@ export const useExperienceForm = (initialData?: ExperienceFormData) => {
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(experienceSchema as any),
     defaultValues: {
-      experience: initialData?.experience || [
-        { position: "", company: "", period: "", description: "" },
-      ],
+      experience: mapExperienceToForm(initialData),
     },
   });
 
@@ -28,9 +33,11 @@ export const useExperienceForm = (initialData?: ExperienceFormData) => {
 
   const onSubmit = async (data: ExperienceFormData) => {
     try {
-      console.log("Дані досвіду готові для БД:", data.experience);
-    } catch (error) {
-      console.error(error);
+      await upsertExperiences(data);
+      router.refresh();
+      toast.success("Experience saved");
+    } catch {
+      toast.error("Failed to save experience");
     }
   };
 

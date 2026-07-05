@@ -1,22 +1,26 @@
-"use client";
+import { getEducation } from "@/features/portfolio/actions/GET/getEducation";
+import { getExperience } from "@/features/portfolio/actions/GET/getExperience";
+import { getProfile } from "@/features/portfolio/actions/GET/getProfile";
+import { getProjects } from "@/features/portfolio/actions/GET/getProjects";
+import { getSkills } from "@/features/portfolio/actions/GET/getSkills";
+import { FormsWrapper } from "@/features/portfolio/components/FormsWrapper";
 
-import { EducationForm } from "@/features/portfolio/components/EducationForm";
-import { ExperienceForm } from "@/features/portfolio/components/ExperienceForm";
-import { ProfileForm } from "@/features/portfolio/components/ProfileForm";
-import { ProjectsForm } from "@/features/portfolio/components/ProjectsForm";
-import { SkillsForm } from "@/features/portfolio/components/SkillsForm";
-import { usePortfolioTab } from "@/features/portfolio/hooks/usePortfolioTab";
-
-export default function Portfolio() {
-  const { activeTab } = usePortfolioTab();
+export default async function Portfolio() {
+  const profileData = await getProfile();
+  const experienceData = await getExperience();
+  const educationData = await getEducation();
+  const skillsData = await getSkills();
+  const projectsData = await getProjects();
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
-      {activeTab === "profile" && <ProfileForm />}
-      {activeTab === "experience" && <ExperienceForm />}
-      {activeTab === "education" && <EducationForm />}
-      {activeTab === "skills" && <SkillsForm />}
-      {activeTab === "projects" && <ProjectsForm />}
+      <FormsWrapper
+        profileData={profileData}
+        experienceData={experienceData}
+        educationData={educationData}
+        skillsData={skillsData}
+        projectsData={projectsData}
+      />
     </div>
   );
 }
