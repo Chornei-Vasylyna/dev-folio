@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { ExperienceData } from "@/lib/supabase/types";
 import { useExperienceForm } from "../hooks/useExperienceForm";
 import { usePortfolioTab } from "../hooks/usePortfolioTab";
@@ -8,9 +9,22 @@ interface ExperienceFormProps {
 }
 
 export const ExperienceForm = ({ experienceData }: ExperienceFormProps) => {
-  const { fields, register, handleSubmit, append, remove, errors } =
-    useExperienceForm(experienceData);
+  const {
+    fields,
+    register,
+    handleSubmit,
+    append,
+    remove,
+    errors,
+    isSubmitting,
+  } = useExperienceForm(experienceData);
   const { activeTab } = usePortfolioTab();
+
+  const { setIsSubmitting } = usePortfolioTab();
+
+  useEffect(() => {
+    setIsSubmitting(isSubmitting);
+  }, [isSubmitting, setIsSubmitting]);
 
   return (
     <form id={activeTab} onSubmit={handleSubmit} className="space-y-4">

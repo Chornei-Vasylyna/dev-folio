@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { EducationData } from "@/lib/supabase/types";
 import { useEducationForm } from "../hooks/useEducationForm";
 import { usePortfolioTab } from "../hooks/usePortfolioTab";
@@ -7,10 +8,21 @@ interface EducationFormProps {
   educationData: EducationData | null;
 }
 
-export const EducationForm = ({educationData}: EducationFormProps) => {
-  const { fields, register, handleSubmit, append, remove, errors } =
-    useEducationForm(educationData);
-  const { activeTab } = usePortfolioTab();
+export const EducationForm = ({ educationData }: EducationFormProps) => {
+  const {
+    fields,
+    register,
+    handleSubmit,
+    append,
+    remove,
+    errors,
+    isSubmitting,
+  } = useEducationForm(educationData);
+  const { activeTab, setIsSubmitting } = usePortfolioTab();
+
+  useEffect(() => {
+    setIsSubmitting(isSubmitting);
+  }, [isSubmitting, setIsSubmitting]);
 
   return (
     <form id={activeTab} onSubmit={handleSubmit} className="space-y-4">

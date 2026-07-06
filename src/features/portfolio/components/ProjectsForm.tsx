@@ -1,9 +1,12 @@
 import { ImageSquareIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react";
+import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { PhotoUpload } from "@/components/PhotoUpload";
 import { Button } from "@/components/ui/button";
 import { InputField } from "@/components/ui/InputField";
+import { Separator } from "@/components/ui/Separator";
 import type { ProjectsData } from "@/lib/supabase/types";
+import { usePortfolioTab } from "../hooks/usePortfolioTab";
 import { useProjectsForm } from "../hooks/useProjectsForm";
 
 interface ProjectsFormProps {
@@ -11,8 +14,22 @@ interface ProjectsFormProps {
 }
 
 export const ProjectsForm = ({ projectsData }: ProjectsFormProps) => {
-  const { fields, control, register, handleSubmit, append, remove, errors } =
-    useProjectsForm(projectsData);
+  const {
+    fields,
+    control,
+    register,
+    handleSubmit,
+    append,
+    remove,
+    errors,
+    isSubmitting,
+  } = useProjectsForm(projectsData);
+  
+  const { setIsSubmitting } = usePortfolioTab();
+
+  useEffect(() => {
+    setIsSubmitting(isSubmitting);
+  }, [isSubmitting, setIsSubmitting]);
 
   // Handlers
   const handleAddProject = () =>
@@ -46,6 +63,25 @@ export const ProjectsForm = ({ projectsData }: ProjectsFormProps) => {
               <TrashIcon className="h-4 w-4 " />
             </Button>
           </div>
+          <div className="flex flex-col items-center gap-3 col-span-full">
+            <Controller
+              control={control}
+              name={`projects.${i}.imageUrl`}
+              render={({ field }) => (
+                <PhotoUpload
+                  label="Project photo"
+                  dropzoneText="Click/Drop"
+                  uploadAreaHeight={30}
+                  uploadAreaWidth={60}
+                  icon={ImageSquareIcon}
+                  value={field.value || undefined}
+                  onAvatarChange={field.onChange}
+                  photoAltText="Project photo"
+                />
+              )}
+            />
+          </div>
+          <Separator className="col-span-full my-2" />
           <InputField
             id="name"
             label="Name"
@@ -64,22 +100,6 @@ export const ProjectsForm = ({ projectsData }: ProjectsFormProps) => {
             placeholder="https://github.com/..."
             error={errors.projects?.[i]?.githubUrl?.message}
             {...register(`projects.${i}.githubUrl`)}
-          />
-          <Controller
-            control={control}
-            name={`projects.${i}.imageUrl`}
-            render={({ field }) => (
-              <PhotoUpload
-                label="Project photo"
-                dropzoneText="Click/Drop"
-                uploadAreaHeight={30}
-                uploadAreaWidth={60}
-                icon={ImageSquareIcon}
-                value={field.value || undefined}
-                onAvatarChange={field.onChange}
-                photoAltText="Project photo"
-              />
-            )}
           />
           <InputField
             id="liveUrl"

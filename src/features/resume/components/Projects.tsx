@@ -3,9 +3,9 @@
 import { ArrowSquareOutIcon, GithubLogoIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
-import type { Projects } from "@/lib/types/User.types";
+import type { ProjectsData } from "@/lib/supabase/types";
 
-export default function ResumeProjects({ items }: { items?: Projects }) {
+export default function ResumeProjects({ items }: { items?: ProjectsData }) {
   if (!items || items.length === 0) return null;
 
   return (
@@ -16,12 +16,12 @@ export default function ResumeProjects({ items }: { items?: Projects }) {
           <Card
             // biome-ignore lint/suspicious/noArrayIndexKey: no other options
             key={i}
-            className="group relative overflow-hidden rounded-2xl border-border/60 p-0 shadow-sm max-w-89.5"
+            className="group relative overflow-hidden rounded-2xl border-border/60 p-0 shadow-sm  w-[280px] sm:w-full"
           >
             <div className="relative h-40 overflow-hidden bg-linear-to-br from-indigo-50 to-blue-50">
-              {p.imageUrl ? (
+              {p.image_url ? (
                 <Image
-                  src={p.imageUrl}
+                  src={p.image_url}
                   alt={p.name}
                   className="object-cover"
                   fill
@@ -32,9 +32,9 @@ export default function ResumeProjects({ items }: { items?: Projects }) {
                 </div>
               )}
               <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/60 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                {p.githubUrl && (
+                {p.github_url && (
                   <a
-                    href={p.githubUrl}
+                    href={p.github_url}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-white/90 p-2.5 hover:bg-white transition-colors"
@@ -45,9 +45,9 @@ export default function ResumeProjects({ items }: { items?: Projects }) {
                     />
                   </a>
                 )}
-                {p.liveUrl && (
+                {p.live_url && (
                   <a
-                    href={p.liveUrl}
+                    href={p.live_url}
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-white/90 p-2.5 hover:bg-white transition-colors"

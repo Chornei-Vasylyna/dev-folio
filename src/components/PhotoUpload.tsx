@@ -23,7 +23,7 @@ interface PhotoUploadProps {
   icon: ComponentType<IconProps>;
   photoAltText: string;
   value?: string;
-  onAvatarChange: (url: string | null) => void;
+  onAvatarChange: (url?: string) => void;
 }
 
 export const PhotoUpload = ({
@@ -65,7 +65,7 @@ export const PhotoUpload = ({
     }
 
     if (e.allEntries.length === 0) {
-      onAvatarChange(null);
+      onAvatarChange("");
       setStatus("idle");
     }
   };
@@ -86,6 +86,11 @@ export const PhotoUpload = ({
       setStatus("uploading");
       uploaderRef.current?.getAPI().addFileFromObject(file);
     }
+  };
+
+  const handlePhotoDelete = () => {
+    onAvatarChange("");
+    setStatus("idle");
   };
 
   return (
@@ -120,7 +125,7 @@ export const PhotoUpload = ({
               )}
             >
               <PencilSimpleIcon className="w-5 h-5" />
-              <p className="text-xs font-medium">Edit photo</p>
+              <p className="text-xs font-medium">Replace</p>
             </div>
           </>
         ) : (
@@ -132,6 +137,17 @@ export const PhotoUpload = ({
           </div>
         )}
       </Button>
+      {value && (
+        <Button
+          type="button"
+          variant="destructive"
+          size="sm"
+          onClick={handlePhotoDelete}
+          className="mt-2 text-destructive hover:text-destructive"
+        >
+          Delete photo
+        </Button>
+      )}
       <FileUploaderRegular
         apiRef={uploaderRef}
         pubkey={env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY}

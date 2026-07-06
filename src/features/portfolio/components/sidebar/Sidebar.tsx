@@ -10,7 +10,7 @@ export const Sidebar = () => {
 
   return (
     <aside className="lg:sticky lg:top-24 h-fit">
-      <nav className="flex justify-center lg:flex-col gap-2 overflow-x-auto pb-1">
+      <nav className="flex lg:flex-col gap-2 justify-start overflow-x-auto pb-1">
         {PORTFOLIO_TABS.map((t) => (
           <Button
             variant="ghost"

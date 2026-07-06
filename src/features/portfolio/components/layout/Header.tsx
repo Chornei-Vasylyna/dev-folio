@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <h1 className="text-2xl font-bold">My portfolio</h1>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mx-auto sm:mx-0">
         {user?.id && (
           <Button variant="outline" size="sm" asChild>
             <Link href={`/resume/${user?.id}`}>
