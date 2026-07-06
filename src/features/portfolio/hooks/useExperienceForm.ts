@@ -17,7 +17,8 @@ export const useExperienceForm = (initialData: ExperienceData | null) => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<ExperienceFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(experienceSchema as any),
@@ -34,6 +35,7 @@ export const useExperienceForm = (initialData: ExperienceData | null) => {
   const onSubmit = async (data: ExperienceFormData) => {
     try {
       await upsertExperiences(data);
+      reset(data);
       router.refresh();
       toast.success("Experience saved");
     } catch {
@@ -49,5 +51,6 @@ export const useExperienceForm = (initialData: ExperienceData | null) => {
     remove,
     errors,
     isSubmitting,
+    isDirty
   };
 };

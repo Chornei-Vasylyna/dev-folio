@@ -11,12 +11,17 @@ interface SkillsFormProps {
 }
 
 export const SkillsForm = ({ skillsData }: SkillsFormProps) => {
-  const { register, handleSubmit, errors, isSubmitting } = useSkillsForm(skillsData);
-  const { setIsSubmitting } = usePortfolioTab();
+  const { register, handleSubmit, errors, isSubmitting, isDirty } =
+    useSkillsForm(skillsData);
+  const { setIsSubmitting, setHasUnsavedChanges } = usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
   }, [isSubmitting, setIsSubmitting]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(isDirty);
+  }, [isDirty, setHasUnsavedChanges]);
 
   return (
     <form id="skills" onSubmit={handleSubmit} className="space-y-3">

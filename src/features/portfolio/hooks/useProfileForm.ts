@@ -17,7 +17,8 @@ export const useProfileForm = (initialData: ProfileData | null) => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<ProfileFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(profileSchema as any),
@@ -27,6 +28,7 @@ export const useProfileForm = (initialData: ProfileData | null) => {
   const onSubmit = async (data: ProfileFormData) => {
     try {
       await upsertProfile(data);
+      reset(data);
       router.refresh();
       toast.success("Profile saved");
     } catch {
@@ -40,5 +42,6 @@ export const useProfileForm = (initialData: ProfileData | null) => {
     control,
     errors,
     isSubmitting,
+    isDirty,
   };
 };

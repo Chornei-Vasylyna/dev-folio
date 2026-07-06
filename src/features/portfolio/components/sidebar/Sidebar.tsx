@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { PORTFOLIO_TABS } from "./Sidebar.constants";
 
 export const Sidebar = () => {
-  const { activeTab, setActiveTab } = usePortfolioTab();
+  const { activeTab, changeTab } = usePortfolioTab();
 
   return (
     <aside className="lg:sticky lg:top-24 h-fit">
@@ -15,7 +15,7 @@ export const Sidebar = () => {
           <Button
             variant="ghost"
             key={t.id}
-            onClick={() => setActiveTab(t.id)}
+            onClick={() => changeTab(t.id)}
             className={cn(
               "flex items-center justify-start gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors whitespace-nowrap lg:w-full",
               activeTab === t.id

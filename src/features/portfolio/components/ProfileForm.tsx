@@ -25,14 +25,18 @@ interface ProfileFormProps {
 }
 
 export const ProfileForm = ({ profileData }: ProfileFormProps) => {
-  const { register, handleSubmit, control, errors, isSubmitting } =
+  const { register, handleSubmit, control, errors, isSubmitting, isDirty } =
     useProfileForm(profileData);
-  const { setIsSubmitting } = usePortfolioTab();
-  const { activeTab } = usePortfolioTab();
+  const { setIsSubmitting, activeTab, setHasUnsavedChanges } =
+    usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
   }, [isSubmitting, setIsSubmitting]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(isDirty);
+  }, [isDirty, setHasUnsavedChanges]);
 
   return (
     <form

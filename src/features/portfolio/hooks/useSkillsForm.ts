@@ -16,7 +16,8 @@ export const useSkillsForm = (initialData: SkillsData | null) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<SkillsFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(skillsSchema as any),
@@ -33,6 +34,7 @@ export const useSkillsForm = (initialData: SkillsData | null) => {
         .filter(Boolean);
 
       await upsertSkills(skillsArray);
+      reset();
       router.refresh();
       toast.success("Skills saved");
     } catch {
@@ -45,5 +47,6 @@ export const useSkillsForm = (initialData: SkillsData | null) => {
     handleSubmit: handleSubmit(onSubmit),
     errors,
     isSubmitting,
+    isDirty,
   };
 };

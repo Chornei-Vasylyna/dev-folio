@@ -23,13 +23,18 @@ export const ProjectsForm = ({ projectsData }: ProjectsFormProps) => {
     remove,
     errors,
     isSubmitting,
+    isDirty,
   } = useProjectsForm(projectsData);
-  
-  const { setIsSubmitting } = usePortfolioTab();
+
+  const { setIsSubmitting, setHasUnsavedChanges } = usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
   }, [isSubmitting, setIsSubmitting]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(isDirty);
+  }, [isDirty, setHasUnsavedChanges]);
 
   // Handlers
   const handleAddProject = () =>

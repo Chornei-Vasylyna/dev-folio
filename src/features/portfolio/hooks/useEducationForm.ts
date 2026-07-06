@@ -17,7 +17,8 @@ export const useEducationForm = (initialData: EducationData | null) => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<EducationFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(educationSchema as any),
@@ -34,6 +35,7 @@ export const useEducationForm = (initialData: EducationData | null) => {
   const onSubmit = async (data: EducationFormData) => {
     try {
       await upsertEducation(data);
+      reset()
       router.refresh();
       toast.success("Education saved");
     } catch {
@@ -49,5 +51,6 @@ export const useEducationForm = (initialData: EducationData | null) => {
     remove,
     errors,
     isSubmitting,
+    isDirty
   };
 };

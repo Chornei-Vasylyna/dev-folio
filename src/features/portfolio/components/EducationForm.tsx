@@ -17,12 +17,18 @@ export const EducationForm = ({ educationData }: EducationFormProps) => {
     remove,
     errors,
     isSubmitting,
+    isDirty,
   } = useEducationForm(educationData);
-  const { activeTab, setIsSubmitting } = usePortfolioTab();
+  const { activeTab, setIsSubmitting, setHasUnsavedChanges } =
+    usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
   }, [isSubmitting, setIsSubmitting]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(isDirty);
+  }, [isDirty, setHasUnsavedChanges]);
 
   return (
     <form id={activeTab} onSubmit={handleSubmit} className="space-y-4">

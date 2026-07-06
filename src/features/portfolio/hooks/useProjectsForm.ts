@@ -17,7 +17,8 @@ export const useProjectsForm = (initialData: ProjectsData | null) => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<ProjectsFormData>({
     // biome-ignore lint/suspicious/noExplicitAny: Zod type mismatch
     resolver: zodResolver(projectsSchema as any),
@@ -34,6 +35,7 @@ export const useProjectsForm = (initialData: ProjectsData | null) => {
   const onSubmit = async (data: ProjectsFormData) => {
     try {
       await upsertProjects(data);
+      reset(data);
       router.refresh();
       toast.success("Projects saved");
     } catch {
@@ -50,5 +52,6 @@ export const useProjectsForm = (initialData: ProjectsData | null) => {
     remove,
     errors,
     isSubmitting,
+    isDirty,
   };
 };

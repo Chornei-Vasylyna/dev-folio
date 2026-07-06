@@ -17,14 +17,19 @@ export const ExperienceForm = ({ experienceData }: ExperienceFormProps) => {
     remove,
     errors,
     isSubmitting,
+    isDirty,
   } = useExperienceForm(experienceData);
   const { activeTab } = usePortfolioTab();
 
-  const { setIsSubmitting } = usePortfolioTab();
+  const { setIsSubmitting, setHasUnsavedChanges } = usePortfolioTab();
 
   useEffect(() => {
     setIsSubmitting(isSubmitting);
   }, [isSubmitting, setIsSubmitting]);
+
+  useEffect(() => {
+    setHasUnsavedChanges(isDirty);
+  }, [isDirty, setHasUnsavedChanges]);
 
   return (
     <form id={activeTab} onSubmit={handleSubmit} className="space-y-4">

@@ -1,5 +1,6 @@
 "use client";
 
+import { UnsavedChangesDialog } from "@/components/ui/UnsavedChangesDialog";
 import { EducationForm } from "@/features/portfolio/components/EducationForm";
 import { ExperienceForm } from "@/features/portfolio/components/ExperienceForm";
 import { ProfileForm } from "@/features/portfolio/components/ProfileForm";
@@ -42,6 +43,8 @@ export const FormsWrapper = ({
       )}
       {activeTab === "skills" && <SkillsForm skillsData={skillsData} />}
       {activeTab === "projects" && <ProjectsForm projectsData={projectsData} />}
+      
+      <UnsavedChangesDialog />
     </>
   );
 };
