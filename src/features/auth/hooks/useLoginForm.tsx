@@ -37,7 +37,7 @@ export const useLoginForm = () => {
 
     toast.success("Welcome back!");
 
-    router.push(LINKS.home);
+    router.replace(LINKS.home);
   };
 
   return {

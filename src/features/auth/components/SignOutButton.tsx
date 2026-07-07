@@ -27,7 +27,7 @@ export const SignOutButton = ({ className, onClick }: SignOutButtonProps) => {
     toast.success("Signed out successfully.");
 
     onClick?.();
-    router.push(LINKS.login);
+    router.replace(LINKS.login);
   };
 
   return (

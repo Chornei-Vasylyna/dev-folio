@@ -37,11 +37,24 @@ export const Catalog = ({ profiles }: CatalogProps) => {
           />
         </InputGroup>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProfiles.map((p) => (
-          <DeveloperCard key={p.user_id} profile={p} />
-        ))}
-      </div>
+      {filteredProfiles.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProfiles.map((p) => (
+            <DeveloperCard key={p.user_id} profile={p} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed text-center">
+          <MagnifyingGlassIcon className="mb-4 h-10 w-10 text-muted-foreground/40" />
+
+          <h3 className="text-lg font-semibold">No resumes found</h3>
+
+          <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+            Try adjusting your search or check back later for new public
+            portfolios.
+          </p>
+        </div>
+      )}
     </section>
   );
 };

@@ -1,7 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import { LINKS } from "@/constants";
-import { authPaths, protectedPaths, supabaseKey, supabaseUrl } from "./constants";
+import {
+  authPaths,
+  protectedPaths,
+  supabaseKey,
+  supabaseUrl,
+} from "./constants";
 
 export const updateSession = async (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({
@@ -34,6 +39,8 @@ export const updateSession = async (request: NextRequest) => {
   const user = data?.claims;
 
   const pathname = request.nextUrl.pathname;
+  console.log("user", user);
+  console.log("pathname", pathname);
 
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
   const isAuthPage = authPaths.some((path) => pathname.startsWith(path));

@@ -37,7 +37,7 @@ export const useRegisterForm = () => {
     }
 
     toast.success("Account created successfully.");
-    router.push(LINKS.home);
+    router.replace(LINKS.home);
   };
 
   return {
