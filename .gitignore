@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI Agent files
+AGENTS.md
+CLAUDE.md
+
+# Lockfiles (pnpm is the source of truth)
+package-lock.json
+yarn.lock
+
+supabase/.temp
